@@ -72,7 +72,7 @@ From our point of view, everyone will have this kind of connection with their fr
 
 ## Storyboards
 ### Solution 1
-![Solution 1](images/1.jpg)
+![](images/1.jpg)
 ### Solution 2
 ![](images/2.1.jpg)
 ![](images/2.2.jpg)
