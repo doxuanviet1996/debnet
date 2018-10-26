@@ -34,21 +34,21 @@ However, there are some features which are not implemented in the low-fi:
 
 ### Screenshots
 
+<center> Main screen </center>
+
 <center> <img/ src = "images/main.png"> </center>
 
-<center> _Main screen_ </center>
+<center> Event creation </center>
 
 <center> <img/ src = "images/create_event.png"> </center>
 
-<center> _Event creation_ </center>
+<center> A particular event </center>
 
 <center> <img/ src = "images/events.png"> </center>
 
-<center> _A particular event_ </center>
+<center> User profile page </center>
 
 <center> <img/ src = "images/mong.png"> </center>
-
-<center> _User profile page_ </center>
 
 ### Scenario
 In order to test our prototype, a scenario is given as follows:
