@@ -33,21 +33,22 @@ However, there are some features which are not implemented in the low-fi:
 3. The low-fi prototype does not support user to pay money, since it is not in one of our task. However the task is also critical, and will be implemented in the high-fi one.
 
 ### Screenshots
-![](images/main.png)
 
-_Main screen_
+<center> <img/ src = "images/main.png"> </center>
 
-![](images/create_event.png)
+<center> _Main screen_ </center>
 
-_Event creation_
+<center> <img/ src = "images/create_event.png"> </center>
 
-![](images/events.png)
+<center> _Event creation_ </center>
 
-_A particular event_
+<center> <img/ src = "images/events.png"> </center>
 
-![](images/mong.png)
+<center> _A particular event_ </center>
 
-_User profile page_
+<center> <img/ src = "images/mong.png"> </center>
+
+<center> _User profile page_ </center>
 
 ### Scenario
 In order to test our prototype, a scenario is given as follows:
