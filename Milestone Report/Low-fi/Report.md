@@ -34,10 +34,13 @@ However, there are some features which are not implemented in the low-fi:
 
 ### Screenshots
 ![](images/main.png)
+_Main screen_
 ![](images/create_event.png)
+_Event creation_
 ![](images/events.png)
+_A particular event_
 ![](images/mong.png)
-
+_User profile page_
 ### Scenario
 In order to test our prototype, a scenario is given as follows:
 In this story you are Viet Anh. Your team just went out for dinner together, and you are the one to pay all the cost of 20000 won. You decided to use the app to create the event and set up the debt. 
