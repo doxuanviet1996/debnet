@@ -1,24 +1,34 @@
 import 'package:flutter/material.dart';
 
+import 'events.dart';
+import 'debts.dart';
+import 'payments.dart';
+import 'friends.dart';
+
 void main() => runApp(new MyApp());
 
 class MyApp extends StatelessWidget {
+
+  Map<String, WidgetBuilder> _buildRoutes() {
+    return {
+      "/events" : (BuildContext context) => Events(),
+      "/debts" : (BuildContext context) => Debts(),
+      "/payment_history" : (BuildContext context) => PaymentsHistory(),
+      "/friends" : (BuildContext context) => Friends(),
+      "/create" : (BuildContext context) => EventCreation(),
+    };
+  }
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
       title: 'DebNet',
+      color: Colors.grey,
       theme: new ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or press Run > Flutter Hot Reload in IntelliJ). Notice that the
-        // counter didn't reset back to zero; the application is not restarted.
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.deepOrange,
       ),
+      routes: _buildRoutes(),
       home: new MyHomePage(title: 'DebNet'),
     );
   }
@@ -52,21 +62,72 @@ class _MyHomePageState extends State<MyHomePage> {
       drawer: Drawer(
         child: ListView(
           children: <Widget>[
-            DrawerHeader(
-              child: Text('Le Viet Anh'),
-              padding: const EdgeInsets.all(32.0),
+            UserAccountsDrawerHeader(
+              currentAccountPicture: CircleAvatar(
+                backgroundImage: AssetImage('images/vanh.jpg'),
+              ),
+              accountName: Text('Le Viet Anh'),
+              accountEmail: Text('vanhle@gmail.com'),
             ),
             ListTile(
-              title: Text('Viet'),
+              leading: Icon(IconData(0xe878, fontFamily: 'MaterialIcons'), color: Colors.blue,),
+              title: Text('List of Events'),
+              onTap: () {
+                Navigator.pushNamed(context, '/events');
+              },
             ),
             ListTile(
-              title: Text('Do'),
+              leading: Icon(IconData(0xe85d, fontFamily: 'MaterialIcons'), color: Colors.blue,),
+              title: Text('List of Debts'),
+              onTap: () {
+                Navigator.pushNamed(context, '/debts');
+              },
+            ),
+            ListTile(
+              leading: Icon(IconData(0xe889, fontFamily: 'MaterialIcons'), color: Colors.blue,),
+              title: Text('Payment History'),
+              onTap: () {
+                Navigator.pushNamed(context, '/payment_history');
+              },
+            ),
+            ListTile(
+              leading: Icon(IconData(0xe7ef, fontFamily: 'MaterialIcons'), color: Colors.blue,),
+              title: Text('Friend List'),
+              onTap: () {
+                Navigator.pushNamed(context, '/friends');
+              },
             ),
           ],
         ),
       ),
       body: Center(
-        child: Text('Welcome to DebNet'),
+        child: Container(
+          width: 200.0,
+          height: 200.0,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            border: Border.all(
+              color: Colors.blue,
+              width: 5.0,
+            ),
+          ),
+          child: Center(
+            child: Text(
+              '100,000 won',
+              style: TextStyle(
+                color: Colors.green,
+              ),
+              textScaleFactor: 2.0,
+            ),
+          ),
+        ),
+      ),
+      floatingActionButton: new FloatingActionButton(
+        onPressed: () {
+          Navigator.pushNamed(context, '/create');
+        },
+        tooltip: 'Create an event',
+        child: new Icon(Icons.add),
       ),
     );
   }
