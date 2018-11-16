@@ -4,6 +4,7 @@ import 'events.dart';
 import 'debts.dart';
 import 'payments.dart';
 import 'friends.dart';
+import 'notification.dart';
 
 void main() => runApp(new MyApp());
 
@@ -16,6 +17,7 @@ class MyApp extends StatelessWidget {
       "/payment_history" : (BuildContext context) => PaymentsHistory(),
       "/friends" : (BuildContext context) => Friends(),
       "/create" : (BuildContext context) => EventCreation(),
+      "/notification" : (BuildContext context) => Notifications(),
     };
   }
 
@@ -58,6 +60,19 @@ class _MyHomePageState extends State<MyHomePage> {
     return new Scaffold(
       appBar: AppBar(
         title: Text('DebNet'),
+        actions: <Widget> [
+          Padding(
+            padding: EdgeInsets.only(right: 20.0),
+            child: IconButton(
+              icon: Icon(IconData(0xe7f5, fontFamily: 'MaterialIcons'), color: Colors.white),
+              iconSize: 35.0,
+              tooltip: 'Notification',
+              onPressed: () {
+                Navigator.pushNamed(context, '/notification');
+              }
+            ),
+          ),  
+        ],
       ),
       drawer: Drawer(
         child: ListView(
