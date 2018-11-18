@@ -5,6 +5,7 @@ import 'debts.dart';
 import 'payments.dart';
 import 'friends.dart';
 import 'notification.dart';
+import 'database.dart';
 
 void main() => runApp(new MyApp());
 
