@@ -45,18 +45,99 @@ class EventCreation extends StatefulWidget {
 
 class _EventCreationState extends State<EventCreation> {
   @override
-  final List<String> _allActivities = <String>['Eating', 'Filming', 'Travelling', 'Drinking'];
-  String _activity = 'Eating';
+  final List<String> _allActivities = <String>['Meal', 'Cinema', 'Travel', 'Cafe'];
+  final Map<String, Icon> iconMap = <String, Icon>{
+    'Meal' : Icon(Icons.local_dining, color: Colors.blue),
+    'Cinema' : Icon(Icons.theaters, color: Colors.blue),
+    'Travel' : Icon(Icons.airplanemode_active, color: Colors.blue),
+    'Cafe' : Icon(Icons.local_cafe, color: Colors.blue),
+  };
+  String _activity = 'Meal';
+  String _eventName = "";
+  int _eventCost = 0;
+  Set<int> participants = Set<int>();
   Widget build(BuildContext context) {
+    List<Widget> users = <Widget>[];
+    participants.add(userManager.currentUser);
+    for(int i=0; i<userManager.users.length; i++) {
+      UserData user = userManager.get(i);
+      if(i != userManager.currentUser) {
+        users.add(Stack(
+          children: <Widget>[
+//            Container(
+//              decoration: BoxDecoration(border: Border.all()),
+//            ),
+            Align(
+              alignment: Alignment(0.0, -0.5),
+              child: GestureDetector(
+                onTap: () {
+                  setState(() {
+                    if(participants.contains(i))
+                      participants.remove(i);
+                    else participants.add(i);
+                  });
+                },
+                child: Container(
+                  height: 128.0,
+                  width: 128.0,
+                  child: CircleAvatar(backgroundImage: user.profilePicture),
+                ),
+              ),
+
+            ),
+            IgnorePointer(
+              child: Align(
+                alignment: Alignment(0.0, -0.5),
+                child: GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      if(participants.contains(i))
+                        participants.remove(i);
+                      else participants.add(i);
+                    });
+                  },
+                  child: Container(
+                    height: 128.0,
+                    width: 128.0,
+                    child: CircleAvatar(
+                      backgroundColor: Colors.white.withOpacity(participants.contains(i) ? 0.0 : 0.7),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Align(
+              alignment: Alignment(0.0, 1.0),
+              child: Text(
+                user.name,
+                textScaleFactor: 1.0,
+              ),
+            ),
+
+          ],
+        ));
+      }
+    }
     return Scaffold(
       appBar: AppBar(
         title: const Text('Create an event'),
         actions: <Widget> [
           Padding(
-            padding: EdgeInsets.only(right: 20.0),
+            padding: EdgeInsets.only(right: 16.0),
             child: IconButton(
               icon: Icon(IconData(0xe876, fontFamily: 'MaterialIcons'), color: Colors.white),
               iconSize: 35.0,
+              onPressed: () {
+                eventManager.add(EventData(
+                  name: _eventName,
+                  time: DateTime.now(),
+                  cost: _eventCost,
+                  icon: iconMap[_activity],
+                  payerID: userManager.getCurrent().userID,
+                  participants: participants.toList()));
+                eventManager.setCurrent(eventManager.eventIdCount - 1);
+                Navigator.pushNamed(context, '/');
+              },
             ),
           ),  
         ],
@@ -75,12 +156,21 @@ class _EventCreationState extends State<EventCreation> {
                   border: OutlineInputBorder(),
                 ),
                 style: Theme.of(context).textTheme.subhead,
+                onChanged: (String newName) {
+                  _eventName = newName;
+                },
               ),
+              const SizedBox(height: 8.0),
               TextField(
+                enabled: true,
                 decoration: const InputDecoration(
-                  labelText: 'Date',
+                  labelText: 'Cost',
+                  border: OutlineInputBorder(),
                 ),
-                style: Theme.of(context).textTheme.subhead,
+                style: Theme.of(context).textTheme.body1,
+                onChanged: (String newValue) {
+                  _eventCost = int.parse(newValue);
+                },
               ),
               const SizedBox(height: 8.0),
               InputDecorator(
@@ -106,19 +196,17 @@ class _EventCreationState extends State<EventCreation> {
                 ),
               ),
               Container(
+                padding: EdgeInsets.only(top: 16.0, bottom: 12.0),
+                child: Text('Participants:'),
+              ),
+              Container(
                 height: 512.0,
                 child: GridView.extent(
-                  maxCrossAxisExtent: 120.0,
-                  padding: EdgeInsets.all(20.0),
-                  mainAxisSpacing: 50.0,
-                  crossAxisSpacing: 50.0,
-                  children: List<Container>.generate(12, (int index) {
-                    return Container(
-                      child: CircleAvatar(
-                        backgroundImage: AssetImage('images/vanh${index+1}.jpg'),
-                      ),
-                    );
-                  }),
+                  maxCrossAxisExtent: 256.0,
+                  padding: EdgeInsets.all(10.0),
+                  mainAxisSpacing: 10.0,
+                  crossAxisSpacing: 10.0,
+                  children: users,
                 ),
               ),
             ],
@@ -136,30 +224,38 @@ class Event extends StatefulWidget {
 class _Event extends State<Event> {
   @override
   Widget build(BuildContext context) {
+    EventData event = eventManager.getCurrent();
+    List<Widget> children = <Widget>[
+      ListTile(
+        leading: event.icon,
+        title: Text(
+          event.name,
+          style: TextStyle(fontWeight: FontWeight.w500, fontSize: 18.0),
+        ),
+        // Add trailing button to remind all?
+        subtitle: Text('${event.cost} won\n${event.time.year}/${event.time.month}/${event.time.day}'),
+        isThreeLine: true,
+      ),
+      Divider(),
+      ListTile(title: Text('Host:', style: TextStyle(fontWeight: FontWeight.w500),)),
+      userManager.get(event.payerID).asListTile(),
+      ListTile(title: Text('Participants:', style: TextStyle(fontWeight: FontWeight.w500),)),
+    ];
+    for(int i=0; i<event.participants.length; i++) {
+      int userID = event.participants[i];
+      if(userID != event.payerID)
+        children.add(userManager.get(userID).asListTile());
+    }
     return new Scaffold(
       appBar: AppBar(
-        title: Text(eventManager.getCurrent().name),
+        title: Text('Event'),
       ),
-      body: Stack(
-        children: <Widget>[
-          Align(
-            alignment: Alignment(0.0, -0.5),
-            child: Container(
-              height: 300.0,
-              width: 300.0,
-              child: CircleAvatar(backgroundImage: AssetImage('images/vanh1.jpg'),),
-            ),
-          ),
-          Align(
-            alignment: Alignment(0.0, 0.5),
-            child: Text(
-              'Dm vanh',
-              textScaleFactor: 2.0,
-//              style: TextStyle(color: Colors.white),
-            ),
-          ),
-        ],
-      ),
+      body: Card(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: children,
+        ),
+      )
     );
   }
 }

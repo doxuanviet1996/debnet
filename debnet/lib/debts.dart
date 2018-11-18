@@ -13,7 +13,7 @@ class _DebtsState extends State<Debts> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     List<DebtData> debts = userManager.getDebts();
     List<Widget> children = <Widget>[];
-    for(int i=0; i<debts.length; i++) {
+    for(int i=debts.length-1; i>=0; i--) {
       EventData event = eventManager.get(debts[i].eventID);
       if(debts[i].done == 1) {
         children.add(ListTile(

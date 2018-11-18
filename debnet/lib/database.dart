@@ -60,6 +60,15 @@ class UserData {
     newNoti = true;
     notifications.add(noti);
   }
+  ListTile asListTile() {
+    return ListTile(
+      leading: CircleAvatar(
+        backgroundImage: profilePicture,
+      ),
+      title: Text(name),
+      subtitle: Text(email),
+    );
+  }
 }
 
 class UserManager {
@@ -133,6 +142,9 @@ class EventManager {
   void add(EventData event) {
     event.eventID = eventIdCount++;
     int debtAmount = event.cost ~/ event.participants.length;
+    print("Add event");
+    print(event.participants);
+    print(event.payerID);
     for(int i=0; i<event.participants.length; i++) {
       userManager.get(event.participants[i]).events.add(event.eventID);
       if(i != event.payerID) {
