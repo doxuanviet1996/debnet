@@ -6,7 +6,6 @@ EventManager eventManager;
 void generateData() {
   userManager = new UserManager();
   eventManager = new EventManager();
-  print('Called?');
   UserData viet = new UserData(
     name: "Viet Do",
     profilePicture: AssetImage('images/vanh1.jpg'),
@@ -46,13 +45,21 @@ class UserData {
     this.moneyDue = 0,
   }) {
     events = new List<int>();
+    notifications = new List<Noti>();
+    newNoti = false;
   }
   int userID;
   String name;
   ImageProvider profilePicture;
   String email;
   int moneyDue;
+  bool newNoti;
   List<int> events;
+  List<Noti> notifications;
+  void addNoti(Noti noti) {
+    newNoti = true;
+    notifications.add(noti);
+  }
 }
 
 class UserManager {
@@ -64,7 +71,6 @@ class UserManager {
   int currentUser = 0;
 
   void add(UserData user) {
-    print('Add user $user.name');
     user.userID = userIdCount++;
     users.add(user);
   }
@@ -82,7 +88,7 @@ class UserManager {
   }
 
   List<DebtData> getDebts() {
-    List<DebtData> res;
+    List<DebtData> res = <DebtData>[];
     UserData user = getCurrent();
     for(int i=0; i<user.events.length; i++) {
       EventData event = eventManager.get(user.events[i]);
@@ -102,6 +108,7 @@ class EventData {
     @required this.time,
     @required this.cost,
     @required this.payerID,
+    this.icon = const Icon(Icons.theaters, color: Colors.blue,),
     @required this.participants,
   }) {
     debts = new List<DebtData>();
@@ -111,6 +118,7 @@ class EventData {
   DateTime time;
   int cost;
   int payerID;
+  Icon icon;
   List<int> participants;
   List<DebtData> debts;
 }
@@ -126,6 +134,7 @@ class EventManager {
     event.eventID = eventIdCount++;
     int debtAmount = event.cost ~/ event.participants.length;
     for(int i=0; i<event.participants.length; i++) {
+      userManager.get(event.participants[i]).events.add(event.eventID);
       if(i != event.payerID) {
         event.debts.add(DebtData(
           eventID: event.eventID,
@@ -136,6 +145,12 @@ class EventManager {
         ));
         userManager.get(event.payerID).moneyDue += debtAmount;
         userManager.get(event.participants[i]).moneyDue -= debtAmount;
+        userManager.get(event.participants[i]).addNoti(Noti(
+          eventID: event.eventID,
+          content: '${userManager.get(event.payerID).name} created an event with you',
+          subContent: '${event.name} - ${event.time.year}/${event.time.month}/${event.time.day}',
+          icon: event.icon,
+        ));
       }
     }
     events.add(event);
@@ -147,6 +162,9 @@ class EventManager {
 
   EventData getCurrent() {
     return events[currentEvent];
+  }
+  void setCurrent(int eventID) {
+    currentEvent = eventID;
   }
 }
 
@@ -162,6 +180,31 @@ class DebtData {
   int host;
   int client;
   int amount;
-  // Three status: not done, pending (waiting accept), done, correspond to 0, 1, 2.
   int done;
+  void makePayment() {
+    EventData event = eventManager.get(eventID);
+    userManager.get(host).moneyDue -= amount;
+    userManager.get(client).moneyDue += amount;
+    done = 1;
+    userManager.get(host).addNoti(Noti(
+      eventID: event.eventID,
+      content: '${userManager.get(client).name} paid you ${amount} won.',
+      subContent: '${event.name} - ${event.time.year}/${event.time.month}/${event.time.day}',
+    ));
+  }
+}
+
+class Noti {
+  Noti({
+    @required this.eventID,
+    @required this.content,
+    @required this.subContent,
+    this.icon = const Icon(Icons.attach_money),
+    this.viewed = false,
+  }){}
+  int eventID;
+  String content;
+  String subContent;
+  Icon icon;
+  bool viewed;
 }

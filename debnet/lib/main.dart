@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
       title: 'DebNet',
       color: Colors.grey,
       theme: new ThemeData(
-        primarySwatch: Colors.deepOrange,
+        primarySwatch: Colors.blue,
       ),
       routes: _buildRoutes(),
       home: new MyHomePage(title: 'DebNet'),
@@ -87,7 +87,9 @@ class _MyHomePageState extends State<MyHomePage> {
           Padding(
             padding: EdgeInsets.only(right: 20.0),
             child: IconButton(
-              icon: Icon(IconData(0xe7f5, fontFamily: 'MaterialIcons'), color: Colors.white),
+              icon: currentUser.newNoti
+                ? Icon(Icons.notification_important, color: Colors.red)
+                : Icon(IconData(0xe7f5, fontFamily: 'MaterialIcons'), color: Colors.white),
               iconSize: 35.0,
               tooltip: 'Notification',
               onPressed: () {
