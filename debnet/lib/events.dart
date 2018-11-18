@@ -1,34 +1,5 @@
 import 'package:flutter/material.dart';
-
-List<Widget> list = <Widget>[
-  ListTile(
-    title: Text('Batman',
-        style: TextStyle(fontWeight: FontWeight.w500, fontSize: 20.0)),
-    subtitle: Text('Lotte Cinema'),
-    leading: Icon(
-      Icons.theaters,
-      color: Colors.deepOrange,
-    ),
-  ),
-  ListTile(
-    title: Text('Avenger',
-        style: TextStyle(fontWeight: FontWeight.w500, fontSize: 20.0)),
-    subtitle: Text('Gungdong'),
-    leading: Icon(
-      Icons.theaters,
-      color: Colors.deepOrange,
-    ),
-  ),
-  ListTile(
-    title: Text('Trilgu',
-        style: TextStyle(fontWeight: FontWeight.w500, fontSize: 20.0)),
-    subtitle: Text('79 Gungdong'),
-    leading: Icon(
-      IconData(0xe56c, fontFamily: 'MaterialIcons'),
-      color: Colors.deepOrange
-    ),
-  ),
-];
+import 'package:flutter/cupertino.dart';
 
 class Events extends StatefulWidget {
   @override
@@ -38,6 +9,32 @@ class Events extends StatefulWidget {
 class _EventsState extends State<Events> {
   @override
   Widget build(BuildContext context) {
+    List<Widget> list = <Widget>[
+      ListTile(
+        title: Text('Batman',
+            style: TextStyle(fontWeight: FontWeight.w500, fontSize: 20.0)),
+        subtitle: Text('Lotte Cinema'),
+        leading: Icon(Icons.theaters, color: Colors.deepOrange,),
+        onTap: () {
+          Navigator.pushNamed(context, '/events/event');
+          },
+      ),
+      ListTile(
+        title: Text('Avenger',
+            style: TextStyle(fontWeight: FontWeight.w500, fontSize: 20.0)),
+        subtitle: Text('Gungdong'),
+        leading: Icon(Icons.theaters, color: Colors.deepOrange,),
+        onTap: () {
+          Navigator.pushNamed(context, '/events/event');
+          },
+      ),
+      ListTile(
+        title: Text('Trilgu',
+            style: TextStyle(fontWeight: FontWeight.w500, fontSize: 20.0)),
+        subtitle: Text('79 Gungdong'),
+        leading: Icon(IconData(0xe56c, fontFamily: 'MaterialIcons'), color: Colors.deepOrange),
+      ),
+    ];
     return new Scaffold(
       appBar: AppBar(
         title: Text('List of events'),
@@ -58,10 +55,81 @@ class EventCreation extends StatefulWidget {
 
 class _EventCreationState extends State<EventCreation> {
   @override
+  final List<String> _allActivities = <String>['Eating', 'Filming', 'Travelling', 'Drinking'];
+  String _activity = 'Eating';
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Create an event'),
+      ),
+      body: DropdownButtonHideUnderline(
+        child: SafeArea(
+          top: false,
+          bottom: false,
+          child: ListView(
+            padding: const EdgeInsets.all(16.0),
+            children: <Widget>[
+              TextField(
+                enabled: true,
+                decoration: const InputDecoration(
+                  labelText: 'Event name',
+                  border: OutlineInputBorder(),
+                ),
+                style: Theme.of(context).textTheme.display1,
+              ),
+              TextField(
+                decoration: const InputDecoration(
+                  labelText: 'Location',
+                ),
+                style: Theme.of(context).textTheme.display1.copyWith(fontSize: 20.0),
+              ),
+              TextField(
+                decoration: const InputDecoration(
+                  labelText: 'Date',
+                ),
+                style: Theme.of(context).textTheme.display1.copyWith(fontSize: 20.0),
+              ),
+              const SizedBox(height: 8.0),
+              InputDecorator(
+                decoration: const InputDecoration(
+                  labelText: 'Activity',
+                  hintText: 'Choose an activity',
+                  contentPadding: EdgeInsets.zero,
+                ),
+                isEmpty: _activity == null,
+                child: DropdownButton<String>(
+                  value: _activity,
+                  onChanged: (String newValue) {
+                    setState(() {
+                      _activity = newValue;
+                    });
+                  },
+                  items: _allActivities.map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+class Event extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() =>new _Event();
+}
+
+class _Event extends State<Event> {
+  @override
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: AppBar(
-        title: Text('Create an event'),
+        title: Text('Event'),
       ),
       body: Center(
         child: Text('Say meomeo'),

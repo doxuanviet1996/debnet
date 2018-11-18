@@ -18,6 +18,7 @@ class MyApp extends StatelessWidget {
       "/friends" : (BuildContext context) => Friends(),
       "/create" : (BuildContext context) => EventCreation(),
       "/notification" : (BuildContext context) => Notifications(),
+      "/events/event" : (BuildContext context) => Event(),
     };
   }
 
