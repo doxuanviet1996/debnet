@@ -140,8 +140,25 @@ class _Event extends State<Event> {
       appBar: AppBar(
         title: Text(eventManager.getCurrent().name),
       ),
-      body: Center(
-        child: Text('Say meomeo'),
+      body: Stack(
+        children: <Widget>[
+          Align(
+            alignment: Alignment(0.0, -0.5),
+            child: Container(
+              height: 300.0,
+              width: 300.0,
+              child: CircleAvatar(backgroundImage: AssetImage('images/vanh1.jpg'),),
+            ),
+          ),
+          Align(
+            alignment: Alignment(0.0, 0.5),
+            child: Text(
+              'Dm vanh',
+              textScaleFactor: 2.0,
+//              style: TextStyle(color: Colors.white),
+            ),
+          ),
+        ],
       ),
     );
   }
