@@ -23,6 +23,7 @@ class MyApp extends StatelessWidget {
       "/create" : (BuildContext context) => EventCreation(),
       "/notification" : (BuildContext context) => Notifications(),
       "/events/event" : (BuildContext context) => Event(),
+      "/friends/profile" : (BuildContext context) => Profile(),
     };
   }
 
@@ -141,16 +142,23 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      body: Center(
+      body: Align(
+        alignment: Alignment(0.0, -0.25),
         child: Container(
-          width: 200.0,
-          height: 200.0,
+          width: 300.0,
+          height: 300.0,
           decoration: BoxDecoration(
+            color: Colors.white,
             shape: BoxShape.circle,
             border: Border.all(
               color: Colors.blue,
-              width: 5.0,
+              width: 13.0,
+
             ),
+            boxShadow: [new BoxShadow(
+                  color: Colors.blue,
+                  blurRadius: 40.0,
+                ),],
           ),
           child: Center(
             child: Text(
@@ -158,7 +166,7 @@ class _MyHomePageState extends State<MyHomePage> {
               style: TextStyle(
                 color: currentUser.moneyDue >= 0 ? Colors.green : Colors.red,
               ),
-              textScaleFactor: 2.0,
+              textScaleFactor: 3.0,
             ),
           ),
         ),
