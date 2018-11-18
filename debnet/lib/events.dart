@@ -74,13 +74,13 @@ class _EventCreationState extends State<EventCreation> {
                   labelText: 'Event name',
                   border: OutlineInputBorder(),
                 ),
-                style: Theme.of(context).textTheme.display1,
+                style: Theme.of(context).textTheme.subhead,
               ),
               TextField(
                 decoration: const InputDecoration(
                   labelText: 'Date',
                 ),
-                style: Theme.of(context).textTheme.display1.copyWith(fontSize: 20.0),
+                style: Theme.of(context).textTheme.subhead,
               ),
               const SizedBox(height: 8.0),
               InputDecorator(
