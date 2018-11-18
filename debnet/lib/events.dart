@@ -61,6 +61,15 @@ class _EventCreationState extends State<EventCreation> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Create an event'),
+        actions: <Widget> [
+          Padding(
+            padding: EdgeInsets.only(right: 20.0),
+            child: IconButton(
+              icon: Icon(IconData(0xe876, fontFamily: 'MaterialIcons'), color: Colors.white),
+              iconSize: 35.0,
+            ),
+          ),  
+        ],
       ),
       body: DropdownButtonHideUnderline(
         child: SafeArea(
@@ -76,12 +85,6 @@ class _EventCreationState extends State<EventCreation> {
                   border: OutlineInputBorder(),
                 ),
                 style: Theme.of(context).textTheme.display1,
-              ),
-              TextField(
-                decoration: const InputDecoration(
-                  labelText: 'Location',
-                ),
-                style: Theme.of(context).textTheme.display1.copyWith(fontSize: 20.0),
               ),
               TextField(
                 decoration: const InputDecoration(
