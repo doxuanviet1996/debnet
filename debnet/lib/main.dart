@@ -7,7 +7,10 @@ import 'friends.dart';
 import 'notification.dart';
 import 'database.dart';
 
-void main() => runApp(new MyApp());
+void main() {
+  generateData();
+  runApp(new MyApp());
+}
 
 class MyApp extends StatelessWidget {
 
@@ -57,8 +60,26 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  List<Widget> getOtherAvatars() {
+    List<Widget> res = <Widget>[];
+    for(int i=0; i<userManager.userIdCount; i++)
+      if(i != userManager.currentUser)
+        res.add(GestureDetector(
+          onTap: () {
+            setState(() {
+              userManager.currentUser = i;
+            });
+          },
+          child: CircleAvatar(
+            backgroundImage: userManager.get(i).profilePicture,
+          ),
+        ));
+    return res;
+  }
+
   @override
   Widget build(BuildContext context) {
+    UserData currentUser = userManager.getCurrent();
     return new Scaffold(
       appBar: AppBar(
         title: Text('DebNet'),
@@ -81,10 +102,11 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             UserAccountsDrawerHeader(
               currentAccountPicture: CircleAvatar(
-                backgroundImage: AssetImage('images/vanh.jpg'),
+                backgroundImage: currentUser.profilePicture,
               ),
-              accountName: Text('Le Viet Anh'),
-              accountEmail: Text('vanhle@gmail.com'),
+              accountName: Text(currentUser.name),
+              accountEmail: Text(currentUser.email),
+              otherAccountsPictures: getOtherAvatars(),
             ),
             ListTile(
               leading: Icon(IconData(0xe878, fontFamily: 'MaterialIcons'), color: Colors.blue,),
@@ -130,9 +152,9 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           child: Center(
             child: Text(
-              '100,000 won',
+              currentUser.moneyDue.toString() + " won",
               style: TextStyle(
-                color: Colors.green,
+                color: currentUser.moneyDue >= 0 ? Colors.green : Colors.red,
               ),
               textScaleFactor: 2.0,
             ),

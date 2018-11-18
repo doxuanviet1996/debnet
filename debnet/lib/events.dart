@@ -112,6 +112,22 @@ class _EventCreationState extends State<EventCreation> {
                   }).toList(),
                 ),
               ),
+              Container(
+                height: 512.0,
+                child: GridView.extent(
+                  maxCrossAxisExtent: 120.0,
+                  padding: EdgeInsets.all(20.0),
+                  mainAxisSpacing: 50.0,
+                  crossAxisSpacing: 50.0,
+                  children: List<Container>.generate(12, (int index) {
+                    return Container(
+                      child: CircleAvatar(
+                        backgroundImage: AssetImage('images/vanh${index+1}.jpg'),
+                      ),
+                    );
+                  }),
+                ),
+              ),
             ],
           ),
         ),
