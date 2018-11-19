@@ -64,7 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
   List<Widget> getOtherAvatars() {
     List<Widget> res = <Widget>[];
     for(int i=0; i<userManager.userIdCount; i++)
-      if(i != userManager.currentUser)
+      if(i != userManager.currentUser && res.length < 3)
         res.add(GestureDetector(
           onTap: () {
             setState(() {
@@ -81,14 +81,14 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     UserData currentUser = userManager.getCurrent();
-    return new Scaffold(
+    return Scaffold(
       appBar: AppBar(
         title: Text('DebNet'),
         actions: <Widget> [
           Padding(
             padding: EdgeInsets.only(right: 20.0),
             child: IconButton(
-              icon: currentUser.newNoti
+              icon: (currentUser.newNoti > 0)
                 ? Icon(Icons.notification_important, color: Colors.red)
                 : Icon(IconData(0xe7f5, fontFamily: 'MaterialIcons'), color: Colors.white),
               iconSize: 35.0,
@@ -142,34 +142,50 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      body: Align(
-        alignment: Alignment(0.0, -0.25),
-        child: Container(
-          width: 300.0,
-          height: 300.0,
-          decoration: BoxDecoration(
-            color: Colors.white,
-            shape: BoxShape.circle,
-            border: Border.all(
-              color: Colors.blue,
-              width: 13.0,
-
+      body: Stack(
+        children: <Widget>[
+          Align(
+            alignment: Alignment(0.0, 0.65),
+            child: Text(
+              'MONEY DUE',
+              textScaleFactor: 3.0,
+              style: TextStyle(
+                color: Colors.blue,
+                fontWeight: FontWeight.w500,
+              ),
             ),
-            boxShadow: [new BoxShadow(
+          ),
+          Align(
+            alignment: Alignment(0.0, -0.35),
+            child: Container(
+              width: 300.0,
+              height: 300.0,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                shape: BoxShape.circle,
+                border: Border.all(
+                  color: Colors.blue,
+                  width: 13.0,
+
+                ),
+                boxShadow: [new BoxShadow(
                   color: Colors.blue,
                   blurRadius: 40.0,
                 ),],
-          ),
-          child: Center(
-            child: Text(
-              currentUser.moneyDue.toString() + " won",
-              style: TextStyle(
-                color: currentUser.moneyDue >= 0 ? Colors.green : Colors.red,
               ),
-              textScaleFactor: 3.0,
+              child: Center(
+                child: Text(
+                  currentUser.moneyDue.toString() + " won",
+                  style: TextStyle(
+                    color: currentUser.moneyDue >= 0 ? Colors.green : Colors.red,
+                    fontWeight: FontWeight.w500,
+                  ),
+                  textScaleFactor: 3.0,
+                ),
+              ),
             ),
           ),
-        ),
+        ],
       ),
       floatingActionButton: new FloatingActionButton(
         onPressed: () {

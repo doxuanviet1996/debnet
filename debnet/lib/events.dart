@@ -64,9 +64,6 @@ class _EventCreationState extends State<EventCreation> {
       if(i != userManager.currentUser) {
         users.add(Stack(
           children: <Widget>[
-//            Container(
-//              decoration: BoxDecoration(border: Border.all()),
-//            ),
             Align(
               alignment: Alignment(0.0, -0.5),
               child: GestureDetector(
@@ -251,8 +248,8 @@ class _Event extends State<Event> {
         title: Text('Event'),
       ),
       body: Card(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
+        child: ListView(
+//          mainAxisSize: MainAxisSize.min,
           children: children,
         ),
       )

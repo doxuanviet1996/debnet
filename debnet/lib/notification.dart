@@ -15,6 +15,10 @@ class _NotificationsState extends State<Notifications> {
       Noti noti = userManager.getCurrent().notifications[i];
       children.add(GestureDetector(
         onTap: () {
+          if(userManager.getCurrent().notifications[i].viewed == false) {
+            userManager.getCurrent().newNoti--;
+            userManager.getCurrent().notifications[i].viewed = true;
+          }
           eventManager.setCurrent(noti.eventID);
           Navigator.pushNamed(context, '/events/event');
         },
@@ -29,9 +33,7 @@ class _NotificationsState extends State<Notifications> {
           subtitle: Text(noti.subContent),
         ),
       ));
-      userManager.getCurrent().notifications[i].viewed = true;
     }
-    userManager.getCurrent().newNoti = false;
     return new Scaffold(
       appBar: AppBar(
         title: Text('Notifications'),
