@@ -40,9 +40,9 @@ Users can also can check events they have joined in "List of events" tab and che
 
 ## Prototype
 
-The project is built as an mobile app, and unfortunately we can't export the project to a web version. Please download the apk file to your phone and install it to test the prototype. Sorry for the inconvenience.
-**Download link:** https://github.com/doxuanviet1996/debnet/blob/master/debnet.apk
-*Please let us know if there is any version problem. We have tested it on several phones and it worked fine, however we are not absolutely sure that it will work properly on your phone.*
+- The project is built as an mobile app, and unfortunately we can't export the project to a web version. Please download the apk file to your phone and install it to test the prototype. Sorry for the inconvenience.
+- **Download link:** https://github.com/doxuanviet1996/debnet/blob/master/debnet.apk
+- *Please let us know if there is any version problem. We have tested it on several phones and it worked fine, however we are not absolutely sure that it will work properly on your phone.*
 
 ## Git repository
 
