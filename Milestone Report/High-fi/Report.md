@@ -20,11 +20,11 @@ The debts connection among a group of friends can be quite complex, due to occas
 
 <center> A particular event </center>
 
-<center> <img/ src = "images/event.png"> </center>
+<center> <img/ src = "images/event.jpg"> </center>
 
 <center> Debts List </center>
 
-<center> <img/ src = "images/debts.png"> </center>
+<center> <img/ src = "images/debts.jpg"> </center>
 ## Prototype
 The project is built as an mobile app, and unfortunately we can't export the project to a web version. Please download the apk file to your phone and install it to test the prototype. Sorry for the inconvenience.
 **Download link:** https://github.com/doxuanviet1996/debnet/blob/master/debnet.apk
