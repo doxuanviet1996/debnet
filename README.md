@@ -1,14 +1,14 @@
 # DebNet
-The codes are all in `lib/` :
-- `lib/main.dart`: The home page, also define routing table.
-- `lib/database.dart`: The 'fake' database where all datas are generated and managed.
-- `lib/debts`: Showing list of debts.
-- `lib/events.dart`: Show the 'List of Events' page and 'Event Creation' page.
-- `lib/friends.dart`: Show the 'List of User' page and 'User Profile' page.
-- `lib/notification.dart`: Show the 'Notification' page.
-- `lib/payments.dart`: Show the 'Payment History' page.
+The codes are all in `debnet/lib/` :
+- `debnet/lib/main.dart`: The home page, also define routing table.
+- `debnet/lib/database.dart`: The 'fake' database where all datas are generated and managed.
+- `debnet/lib/debts`: Showing list of debts.
+- `debnet/lib/events.dart`: Show the 'List of Events' page and 'Event Creation' page.
+- `debnet/lib/friends.dart`: Show the 'List of User' page and 'User Profile' page.
+- `debnet/lib/notification.dart`: Show the 'Notification' page.
+- `debnet/lib/payments.dart`: Show the 'Payment History' page.
 
-The asset images that are used are all in `images`.
+The asset images that are used are all in `debnet/images`.
 
 ### Note
 - Since the data are fake and there are no database, everytime you restart the app, everything will be reset.
