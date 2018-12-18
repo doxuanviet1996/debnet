@@ -9,9 +9,9 @@ Members:
 
 ## Quality arguments
 Whenever we go out with friends or participated in some certain events, it is quite troublesome to ask to divide the total amount of the bill and ask every single participant to pay that amount separately. Therefore, it will be better that one person will pay first and the others with pay him/her later. However, as we participated in many events within a day with a lot of different people, it is very difficult for us to remember all debtors as well as creditors. Furthermore, as time goes on, people might forget to pay back money but people are often shy or they may feel that it is not nice to ask others to pay back directly. Then, people might never get their money back. Therefore, we introduce our application which is called "DebNet" that can solve this problem. First of all, our app help people calculate the exact amount of money that each person has to pay back to the one that pay the whole bill. Users gave us feedback that "The app's calculation is precise and it does a good work of keeping track of the debts". 
-
+<center> <img/ src = "events.jpg"> </center>
 Secondly, we note all of the activities that users have participated in which can help them keep track of the money they paid or received is belong to which events, in what time, etc., avoiding confusion. 
-
+<center> <img/ src = "reminder.jpg"> </center>
 The next advantage of our app is that we offer the reminding system which allow user politely remind other users that they are owing you money or notify others that you have completed the payment.
 ## Evaluation
 Because of our lack of database, we are not able to capture any statistic from user testing. Initially we ask 4 of our friends to test our app and gather their feedback, we also advertise our app to friends on social networks and other mean of communication, however, we do not have the number of how many users actually try out the app. However from the initial testing, we have acquired some feedbacks about the application:
